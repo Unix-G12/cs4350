@@ -1,0 +1,8 @@
+install jq with:
+$sudo apt-get install jq
+
+learn to parse JSON with:
+http://www.compciv.org/recipes/cli/jq-for-parsing-json/
+
+how to manipulate json with jq:
+https://shapeshed.com/jq-json/
