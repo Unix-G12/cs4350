@@ -1,1 +1,1 @@
-david crowe - git readme
+david crowe - dac183@txstate.edu
