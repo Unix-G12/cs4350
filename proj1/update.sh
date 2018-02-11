@@ -7,7 +7,7 @@ echo -e " (a) Name\n" "(b) Address\n" "(c) Phone Number\n" "(d) Email\n"
 
 read input
 
-	case $input
+	case $input in
 		"a"|"A"|"1")
 			read -p "Input current Name\n" var;;
 		"b"|"B"|"2")
@@ -18,6 +18,8 @@ read input
 			read -p "Input current Email\n" var;;
 			break;;
 		*) echo -e '\t\t('!') INVALID CHOICE ('!')';;
+	
+	esac
 		
 read -p "What would you like to change it to?\n" new_Input	
 
