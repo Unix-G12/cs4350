@@ -1,4 +1,5 @@
 #!/bin/bash
+#Author : Maria Sanchez
 # Remove functionality
 
 DATABASE="database.txt"
