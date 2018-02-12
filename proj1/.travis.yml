@@ -1,0 +1,7 @@
+language: bash
+
+before_install:
+  - chmod +x remove.sh
+  
+script:
+    - ./remove.sh <testing.txt
