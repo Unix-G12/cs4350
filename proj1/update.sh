@@ -35,7 +35,7 @@ read input
 				read -p "What would you like to change it to?\n" new_var
 			else
 				echo "No one with that email in this database.\n"
-			fi;;
+			fi
 			break;;
 		*) echo -e '\t\t('!') INVALID CHOICE ('!')';;	
 	esac
