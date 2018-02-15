@@ -6,24 +6,28 @@ ADDRESS=":"
 PHONE_NUMBER=":"
 EMAIL=":"
 line1=":"
-field=""
+fields="x"
 input=""
-
-while [ $input != "^[abcd]$" ] 
+minEmailCount=5
+until [[ $fields =~ ^[a-d]*$ ]]
+	do 
     clear
-    echo -e "Which contact fields would you like to search? \n[Enter up to 4 choices with no spaces (e.g. abd)] \n";
-    echo -e "(a) name \n (b) address \n (c) phone number \n (d) email \n";
+    echo -e "Which contact fields would you like to search?\n(*) Enter up to 4 choices with no spaces (e.g. abd) (*) \n";
+    echo -e " (a) Name \n (b) Address \n (c) Phone Number \n (d) E-Mail \n";
     read -p "Enter choice: " fields
 done
 
-for f in fields 
+for f in $fields 
+	do
+	#choice=$f
+	#echo -e "${#fields} \n";
 	case $f in
 		"a"|"A"|"1")
             while [[ $NAME == *":"* ]]
-                do
+            	do
                 echo "Search for contact name: "
                 read NAME
-                done;;
+            done;;
 
 		"b"|"B"|"2")
             while [[ $ADDRESS == *":"* ]]
@@ -33,20 +37,21 @@ for f in fields
                 done;;
 
 		"c"|"C"|"3")
-            while [[ $PHONE_NUMBER == *":"* ]]
+            while [ $PHONE_NUMBER == *":"* ]  && [ ${#PHONE_NUMBER} -gt 7 ]
                 do
                 echo "Search for contact phone number: " 
                 read PHONE_NUMBER
                 done;;
                 
 		"d"|"D"|"4")
+            #while [[ $EMAIL == *":"* ] && [ ${#EMAIL} -lt $minEmailCount ]]
             while [[ $EMAIL == *":"* ]]
                 do
                 echo "Search for contact email: "
                 read EMAIL
                 done;;
 	esac
-
+done
 line1=$(grep -i "$NAME" database.txt | grep -i "$ADDRESS" | grep -i "$PHONE_NUMBER" | grep -i "$EMAIL")
 
 OIFS=$IFS
