@@ -79,3 +79,6 @@ IFS="
 "
 done
 IFS=$OIFS
+
+# TODO
+# check for multiple entries, if so prompt for unique identifer (email)
