@@ -3,8 +3,6 @@
 
 #create and populate
 
-echo -e "let's add a record!\n";
-
 NAME=":"
 ADDRESS=":"
 PHONE_NUMBER=":"
@@ -12,30 +10,22 @@ EMAIL=":"
 
 while [[ $NAME == *":"* ]]
 do
-  echo Name cannot contain a colon
-  echo What is your name?
-  read NAME
+  read -p "New Contact Name: " NAME
 done
 
 while [[ $ADDRESS == *":"* ]]
 do
-  echo Address cannot contain a colon
-  echo What is your address?
-  read ADDRESS
+  read -p "New Contact Address: " ADDRESS
 done
 
 while [[ $PHONE_NUMBER == *":"* ]]
 do
-  echo Phone number cannot contain a colon
-  echo What is your phone number?
-  read PHONE_NUMBER
+  read -p "New Contact Phone Number: " PHONE_NUMBER
 done
 
 while [[ $EMAIL == *":"* ]]
 do
-  echo Email cannot contain a colon
-  echo What is your email?
-  read EMAIL
+  read -p "New Contact E-Mail: " EMAIL
 done
 
 echo $NAME:$ADDRESS:$PHONE_NUMBER:$EMAIL >> database.txt
