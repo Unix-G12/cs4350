@@ -58,17 +58,12 @@ if [[ ${#contactInfo} != 0 ]]
 	OIFS=$IFS
 	IFS="
 	"
-	count=0
+	count2=0
 	for this in $contactInfo
 	do
-	#echo "COUNT: $count"
 	    IFS=":"
 	    read -ra x <<< "${this}"
 	    read -ra x <<< "$this"
-	#count=${#x[@]}
-	#count2=0
-	#while [[ $count2 -lt $count ]]
-	#do
 
 	if ([ "$NAME" == ":" ] || [ "$NAME" == "${x[count2]}" ]) && ([ "$ADDRESS" == ":" ] || [ "$ADDRESS" == "${x[count2+1]}" ]) && ([ "$PHONE_NUMBER" == ":" ] || [ "$PHONE_NUMBER" == "${x[count2+2]}" ]) && ([ "$EMAIL" == ":" ] || [ "$EMAIL" == "${x[count2+3]}" ])
 	then
@@ -78,8 +73,6 @@ if [[ ${#contactInfo} != 0 ]]
 	    echo "Phone Number: ${x[count2+2]}"
 	    echo "Email: ${x[count2+3]}"
 	    echo -e "-----------------------------\n"
-	#count2=$count2+4
-	#done
 	else
 	    echo -e "Contact not found. Please enter full name and/or address.\n"
 	fi
@@ -91,8 +84,6 @@ if [[ ${#contactInfo} != 0 ]]
 else
 	echo -e "Error: One or more fields did not exist in the database.\nTry simplying your search.\n";	
 fi
-
-
 
 
 
