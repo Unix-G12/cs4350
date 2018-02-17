@@ -1,5 +1,5 @@
 Name:Address:Phone:Email
 Qijun Gu:209E Comal:2453518:qijun@txstate.edu
 Rick Sanchez:C-137:1234567:get@schwifty.org
-Kim Lu:5327 Fun Street: kim_lu@yup.com
-Kim Lu:3428 Boring Street: kim.lu@nope.com
+Kim Lu:5327 Fun Street:5349374392:kim_lu@yup.com
+Kim Lu:3428 Boring Street:5647382947kim.lu@nope.com
