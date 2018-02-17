@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 # Record Searching
 
 NAME=":"
@@ -14,7 +14,7 @@ until [[ $fields =~ ^[a-d]*$ ]]
 	do 
     clear
     echo -e "Which contact fields would you like to search?\nEnter up to 4 choices with no spaces (e.g. abd) \n";
-    echo -e " (a) Name \n (b) Address \n (c) Phone Number \n (d) E-Mail \n";
+    echo -e " (a) Full Name \n (b) Address \n (c) Phone Number \n (d) E-Mail \n";
     read -p "Enter choice: " fields
 done
 
@@ -49,6 +49,48 @@ for (( f=0; f<${#fields}; f++));
                 done;;
 	esac
 done
+
+contactInfo=$(grep -i "$NAME" database.txt | grep -i "$ADDRESS" | grep -i "$PHONE_NUMBER" | grep -i "$EMAIL")
+
+if [[ ${#contactInfo} != 0 ]]
+	then
+
+	OIFS=$IFS
+	IFS="
+	"
+	count=0
+	for this in $contactInfo
+	do
+	#echo "COUNT: $count"
+	    IFS=":"
+	    read -ra x <<< "${this}"
+	    read -ra x <<< "$this"
+	#count=${#x[@]}
+	#count2=0
+	#while [[ $count2 -lt $count ]]
+	#do
+
+	if ([ "$NAME" == ":" ] || [ "$NAME" == "${x[count2]}" ]) && ([ "$ADDRESS" == ":" ] || [ "$ADDRESS" == "${x[count2+1]}" ]) && ([ "$PHONE_NUMBER" == ":" ] || [ "$PHONE_NUMBER" == "${x[count2+2]}" ]) && ([ "$EMAIL" == ":" ] || [ "$EMAIL" == "${x[count2+3]}" ])
+	then
+	    echo -e "-----------------------------\nContact Information\n"
+	    echo "Name: ${x[count2]}"
+	    echo "Address: ${x[count2+1]}"
+	    echo "Phone Number: ${x[count2+2]}"
+	    echo "Email: ${x[count2+3]}"
+	    echo -e "-----------------------------\n"
+	#count2=$count2+4
+	#done
+	else
+	    echo -e "Contact not found. Please enter full name and/or address.\n"
+	fi
+	IFS="
+	"
+	done
+	IFS=$OIFS
+
+else
+	echo -e "Error: One or more fields did not exist in the database.\nTry simplying your search.\n";	
+fi
 
 
 
