@@ -28,49 +28,44 @@ else
 	PHONE_NUMBER=$4
 	EMAIL=$5
 fi	
-	while true; do
 
-		echo -e "What would you like to update about this record?\n"
+while true; do
 
-		echo -e " (a) Name\n" "(b) Address\n" "(c) Phone Number\n" "(d) Email\n (e) Nothing\n"
+	echo -e "What would you like to update about this record?\n"
 
-		read MENU
+	echo -e " (a) Name\n" "(b) Address\n" "(c) Phone Number\n" "(d) Email\n (e) Nothing\n"
 
-			case $MENU in
-				"a"|"A"|"1")
-					read -p "Input updated Name: " NAME
-					break
-					;;
-				"b"|"B"|"2")
-					read -p "Input updated Address: " ADDRESS
-					break
-					;;
-				"c"|"C"|"3")
-					read -p "Input updated Phone Number: " PHONE_NUMBER
-					break
-					;;
-				"d"|"D"|"4")
-					read -p "Input updated Email: " EMAIL
-					break
-					;;
-				"e"|"E"|"5")
-					echo -e "Exiting\n"
-					break
-					;;
-				*) 
-					echo "INVALID CHOICE"
-					;;	
-			esac
-			done
-			MENU=' '
+	read MENU
 
+	case $MENU in
+		"a"|"A"|"1")
+			read -p "Input updated Name: " NAME
+			;;
+		"b"|"B"|"2")
+			read -p "Input updated Address: " ADDRESS
+			;;
+		"c"|"C"|"3")
+			read -p "Input updated Phone Number: " PHONE_NUMBER
+			;;
+		"d"|"D"|"4")
+			read -p "Input updated Email: " EMAIL
+			;;
+		"e"|"E"|"5")
+			echo -e "Exiting\n"
+			break
+			;;
+		*) 
+			echo "INVALID CHOICE"
+			;;	
+	esac
+		
+	if [ $MENU != "e" ]; then		
 		grep -v "${search}" ${DATABASE} > temp && mv temp ${DATABASE}
 
-		echo "$NAME:$ADDRESS:$PHONE_NUMBER:$EMAIL" >> ${DATABASE}
-
+		echo "$NAME:$ADDRESS:$PHONE_NUMBER:$EMAIL" >> ${DATABASE}	
 
 		echo -e "Updating existing record.\n"
- 
-		IFS=' '
-
-	done 
+ 		fi
+	IFS=' '
+	MENU=' '
+done 
