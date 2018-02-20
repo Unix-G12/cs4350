@@ -5,7 +5,7 @@ read -s -p "Enter password:" PASS1
     if [ "$PASS1" == "$PASS" ];
         then
             echo
-            echo " Showing database.."
+            echo "Showing database.."
             echo
             cat $DATABASE ;
         else
