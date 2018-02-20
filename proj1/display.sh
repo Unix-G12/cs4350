@@ -1,5 +1,5 @@
 DATABASE="database.txt"
-PASS=mariaisawesome
+PASS=p@ssword
 
 read -s -p "Enter password:" PASS1
     if [ "$PASS1" == "$PASS" ];
