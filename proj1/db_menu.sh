@@ -1,11 +1,10 @@
 #!/bin/bash
 # CS4350 Project 1 Menu Interface
 
-echo -e "\nWelcome to Contact Database!\n***************************"
-
 while true;
 do
-	echo -e " (a) Add Record\n" "(b) Search record\n" "(c) Update record\n" "(d) Remove Record\n" "(e) Display All\n " "(f) Exit\n"
+	echo -e "\nWelcome to Contact Database!\n***************************"
+	echo -e " (a) Add Record\n" "(b) Search record\n" "(c) Update record\n" "(d) Remove Record\n" "(e) Display Entire Database (Admin Only)\n (f) Exit\n"
 	read -p "Enter choice: " choice
 
 	case $choice in
@@ -21,7 +20,7 @@ do
 			./display.sh;;
 		"f"|"F"|"6")
 			echo -e "exiting.."
-			break;;
+break;;
 		*) echo -e '\t\t('!') INVALID CHOICE ('!')';;
 	esac
 done
