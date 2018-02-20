@@ -4,7 +4,9 @@ PASS=mariaisawesome
 read -s -p "Enter password:" PASS1
     if [ "$PASS1" == "$PASS" ];
         then
-            echo " Showing database..\n"
+            echo
+            echo " Showing database.."
+            echo
             cat $DATABASE ;
         else
             echo "Invalid Password!"
