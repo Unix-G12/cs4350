@@ -7,13 +7,8 @@ read -s -p "Enter password:" PASS1
             echo
             echo "Showing database.."
             echo
-            cat $DATABASE ;
+            column -t -s ":" $DATABASE;
         else
             echo "Invalid Password!"
             ./db_menu.sh
 fi
-
-
-
-
-
