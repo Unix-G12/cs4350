@@ -2,46 +2,63 @@
 # Update functionality
 
 DATABASE="database.txt"
-MULTIPLE="FALSE"
+MULTIPLE_FOUND="FALSE"
 minEmailCount=5
-MENU="x"
-read -p "Please enter the name of the record you would like to update: " search
+MENU_OPTION="x"
+read -p "Please enter the name of the record you would like to update: " search_name
 
-COUNT=$(grep -ci "${search}" ${DATABASE})
+COUNT=$(grep -ci "${search_name}" ${DATABASE})
 
 if [ ${COUNT} -gt 1 ]; then
-	read -p "Found more than one matching record. Please enter contact's email: " UPDATE_EMAIL
-
+	read -p "Found more than one matching record. Please enter contact's email: " search_email
+	MULTIPLE_FOUND="TRUE"
 elif [ ${COUNT} -eq 0 ]; then
 	echo -e "Could not find matching record. Please input full name.\n"
 	./update.sh
-else
-	echo -e "Contact found:"
-	LINE=$(grep -i "${search}" ${DATABASE})
-	echo -e "$LINE\n"
+else #single contact found
+	LINE=$(grep -i "${search_name}" ${DATABASE})
+	echo -e "---\nFound contact\n $LINE\n---"
 	IFS=':'
 	set $LINE
-	NUM=$1
-	NAME=$2
-	ADDRESS=$3
-	PHONE_NUMBER=$4
-	EMAIL=$5
+	#NUM=$1
+	#NAME=$2
+	#ADDRESS=$3
+	#PHONE_NUMBER=$4
+	#EMAIL=$5
+	NAME=$1
+	ADDRESS=$2
+	PHONE_NUMBER=$3
+	EMAIL=$4
 fi	
 
-while true; 
-do
+if [ "$MULTIPLE_FOUND" = "TRUE" ]; then
+	LINE=$(grep -i "${search_email}" ${DATABASE})
+	echo -e "---\nFound contact\n$LINE\n---"
+	IFS=':'
+	set $LINE
+	#NUM=$1
+	#NAME=$2
+	#ADDRESS=$3
+	#PHONE_NUMBER=$4
+	#EMAIL=$5
+	NAME=$1
+	ADDRESS=$2
+	PHONE_NUMBER=$3
+	EMAIL=$4
+fi
 
-until [[ $MENU =~ ^[a-e]*$ ]]
+until [[ $MENU_OPTION =~ ^[a-e]*$ ]]
 do 
-
-	echo -e "What would you like to update about this record?\nEnter up to 4 choices with no spaces (e.g. bcd)"
-
+	echo -e "What would you like to update about this record?\nEnter up to 4 choices with no spaces (e.g. bcd)\n"
 	echo -e " (a) Name\n" "(b) Address\n" "(c) Phone Number\n" "(d) Email\n (e) Nothing\n"
 
-	read -p "Choice: " MENU
+	read -p "Choice: " MENU_OPTION
 done
-for ((m=0; m<${#MENU}; m++)); do
-	case $MENU in
+for ((m=0; m<${#MENU_OPTION}; m++));
+do
+	choice=${MENU_OPTION:$m:1}
+	case $choice in
+
 		"a"|"A"|"1")
 			read -p "Input updated Name: " NAME
 			;;
@@ -56,17 +73,24 @@ for ((m=0; m<${#MENU}; m++)); do
 			;;
 		"e"|"E"|"5")
 			echo -e "Database unchanged.\n"
-			./db_menu.sh
+			MENU_OPTION="x"
 			break
 			;;
 		*) 
 	esac
-done		
-	grep -v "${search}" ${DATABASE} > temp && mv temp ${DATABASE}
+done
 
-	echo "$NAME:$ADDRESS:$PHONE_NUMBER:$EMAIL" >> ${DATABASE}	
+if [ "$MULTIPLE_FOUND" = "FALSE" ];
+then	
+	#echo "Removing all instances of contact with name: ${search_name}"	
+	grep -v "${search_name}" ${DATABASE} > temp && mv temp ${DATABASE}
+else
+	#echo "Removing all instances of contact with name: ${search_email}"	
+	grep -v "${search_email}" ${DATABASE} > temp && mv temp ${DATABASE}
 
-	echo -e "Updating existing record.\n"
-	IFS=' '
-	MENU=' '
-done 
+fi
+
+echo -e "$NAME:$ADDRESS:$PHONE_NUMBER:$EMAIL" >> ${DATABASE}	
+#echo "updated field to be appended: $NAME:$ADDRESS:$PHONE_NUMBER:$EMAIL"	
+echo -e "Updating existing record.\n"
+IFS=' '

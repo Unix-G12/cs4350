@@ -3,39 +3,32 @@
 
 #create and populate
 
-echo -e "let's add a record!\n";
-
 NAME=":"
 ADDRESS=":"
 PHONE_NUMBER=":"
 EMAIL=":"
-
+minEmailCount=5 #a@a.co -> shortest possible email
+minPhoneDigits=7 #555-6666
 while [[ $NAME == *":"* ]]
 do
-  echo Name cannot contain a colon
-  echo What is your name?
-  read NAME
+  read -p "New Contact Name: " NAME
 done
 
 while [[ $ADDRESS == *":"* ]]
 do
-  echo Address cannot contain a colon
-  echo What is your address?
-  read ADDRESS
+  read -p "New Contact Address: " ADDRESS
 done
 
-while [[ $PHONE_NUMBER == *":"* ]]
+while [[ $PHONE_NUMBER == *":"* ]]  || [[ ${#PHONE_NUMBER} -lt $minPhoneDigits ]]
 do
-  echo Phone number cannot contain a colon
-  echo What is your phone number?
-  read PHONE_NUMBER
+  read -p "New Contact Phone Number (at least 7 digits): " PHONE_NUMBER
 done
 
-while [[ $EMAIL == *":"* ]]
+while [[ $EMAIL == *":"* ]] || [[ ${#EMAIL} -lt $minEmailCount ]]
 do
-  echo Email cannot contain a colon
-  echo What is your email?
-  read EMAIL
+  read -p "New Contact E-Mail: " EMAIL
 done
+
+echo -e "Added $NAME to database!\n"
 
 echo $NAME:$ADDRESS:$PHONE_NUMBER:$EMAIL >> database.txt
